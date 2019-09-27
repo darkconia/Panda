@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PandaSoft</string>
+    <string name="txtUsername">ชื่อผู้ใช้</string>
+    <string name="txtPassword">รหั้สผ่าน</string>
+    <string name="txtLogin">ลงชื่อเข้าใช้</string>
+    <string name="txtLoremIpsum">Suspendisse accumsan ipsum quam, sed pharetra lacus semper a. Mauris a erat ut dolor sodales tincidunt. Etiam et interdum dolor. Vestibulum malesuada est et malesuada egestas. Mauris iaculis nec velit vel ultricies. Duis ac orci sed tortor gravida commodo. Cras sagittis elit non nulla accumsan imperdiet. Quisque quis massa id lacus auctor ullamcorper. Nulla aliquet purus vel erat scelerisque varius. Nam et erat et velit venenatis eleifend et sed mauris.</string>
+</resources>
