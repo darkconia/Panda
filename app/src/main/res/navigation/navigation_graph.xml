@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation_graph"
+            app:startDestination="@id/loginFragment">
+
+    <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.pandasoft.ui.login.LoginFragment"
+            android:label="navigation_first_fragment"
+            tools:layout="@layout/login_fragment" >
+        <action
+                android:id="@+id/action_loginFragment_to_newsListFragment"
+                app:destination="@id/newsListFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" />
+        <argument
+                android:name="test_string"
+                android:defaultValue="hello world"
+                app:argType="string" />
+    </fragment>
+    <fragment
+            android:id="@+id/newsListFragment"
+            android:name="com.example.pandasoft.ui.news.page.newList.NewListFragment"
+            android:label="navigation_second_fragment"
+            tools:layout="@layout/list_news" />
+</navigation>
