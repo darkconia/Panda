@@ -5,8 +5,23 @@ import com.google.gson.annotations.SerializedName
 data class LoginBodyRequest(
 
 	@field:SerializedName("password")
-	val password: String? = null,
+	var password: String? = null,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	var username: String? = null
+
+
 )
+
+fun LoginBodyRequest.create(user:String , pass:String) : LoginBodyRequest {
+
+	return try {
+		this.apply {
+			username = user
+			password = pass
+		}
+	}catch (e:Exception){
+		this
+	}
+
+}
