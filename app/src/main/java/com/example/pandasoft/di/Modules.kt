@@ -1,22 +1,45 @@
 package com.example.pandasoft.di
 
+import com.example.pandasoft.api.APIService
 import com.example.pandasoft.ui.login.LoginRepository
 import com.example.pandasoft.ui.login.LoginViewModel
-import com.example.pandasoft.ui.login.api.LoginAPIService
 import com.example.pandasoft.ui.news.page.newList.NewListRepository
 import com.example.pandasoft.ui.news.page.newList.NewListViewModel
 import com.example.pandasoft.util.AppExecutors
-import org.koin.android.ext.koin.androidContext
+import com.example.pandasoft.util.AuthInterceptor
+import okhttp3.OkHttpClient
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 val applicationModule = module {
 
     single { AppExecutors() }
-//    single { LoginAPIService() }
-//    single <LoginAPIService>{LoginAPIService()}
     single { LoginRepository(get(), get()) }
     single { NewListRepository(get()) }
     viewModel { LoginViewModel(get()) }
     viewModel { NewListViewModel(get()) }
+
+    single{provideDefaultOkHttpClient()}
+    single{provideRetrofit(get())}
+    single{provideTmdbService(get())}
 }
+
+fun provideDefaultOkHttpClient() : OkHttpClient{
+    return OkHttpClient.Builder()
+        .addInterceptor(AuthInterceptor())
+        .build()
+}
+
+fun provideRetrofit(client : OkHttpClient) : Retrofit{
+    return Retrofit.Builder()
+        .baseUrl("https://5c065a3fc16e1200139479cc.mockapi.io/api/v1/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+}
+
+fun provideTmdbService(retrofit : Retrofit): APIService = retrofit.create(APIService::class.java)

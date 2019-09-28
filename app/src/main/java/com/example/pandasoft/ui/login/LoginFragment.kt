@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.pandasoft.R
-import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.login_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
