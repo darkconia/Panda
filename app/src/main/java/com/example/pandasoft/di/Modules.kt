@@ -30,7 +30,7 @@ val applicationModule = module {
     viewModel { NewListViewModel(get() ,get()) }
     viewModel { NewSingleViewModel(get()) }
 
-    single<SharedPreferences> { androidContext().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE) }
+    single<SharedPreferences> { androidContext().getSharedPreferences("preferenceData", Context.MODE_PRIVATE) }
 
     single{provideDefaultOkHttpClient()}
     single{provideRetrofit(get())}

@@ -11,6 +11,7 @@ class PreferenceData (var context : Context) {
     var accessToken = "accessToken"
     var refreshToken = "refreshToken"
     var expireIn = "expireIn"
+    var preferenceData = "preferenceData"
 
 
     init {
