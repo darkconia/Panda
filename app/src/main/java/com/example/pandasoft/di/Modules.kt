@@ -10,7 +10,6 @@ import com.example.pandasoft.ui.news.page.newList.NewListViewModel
 import com.example.pandasoft.ui.news.page.newSingle.NewSingleRepository
 import com.example.pandasoft.ui.news.page.newSingle.NewSingleViewModel
 import com.example.pandasoft.util.AppExecutors
-import com.example.pandasoft.util.AuthInterceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,6 +17,8 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.logging.HttpLoggingInterceptor
+
 
 val applicationModule = module {
 
@@ -37,8 +38,10 @@ val applicationModule = module {
 }
 
 fun provideDefaultOkHttpClient() : OkHttpClient{
+    val logging = HttpLoggingInterceptor()
+    logging.level = HttpLoggingInterceptor.Level.BODY
     return OkHttpClient.Builder()
-        .addInterceptor(AuthInterceptor())
+        .addInterceptor(logging)
         .build()
 }
 
