@@ -13,11 +13,10 @@ import com.example.pandasoft.R
 import com.example.pandasoft.ui.news.model.DataItem
 import kotlinx.android.synthetic.main.item_news.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import android.net.Uri
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_news.*
-import kotlinx.android.synthetic.main.list_news.view.*
+import com.example.pandasoft.util.OnItemClickListener
 
 
 class NewListFragment : Fragment(){
@@ -42,12 +41,19 @@ class NewListFragment : Fragment(){
         val bundle = Bundle()
         val navController = Navigation.findNavController(activity!!, com.example.pandasoft.R.id.my_nav_host_fragment)
 
-
         rv_news.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true)
             setHasFixedSize(true)
-            oRecyclerViewAdapter = RecyclerViewAdapter(context!!, ArrayList())
+            oRecyclerViewAdapter = RecyclerViewAdapter(context!!, ArrayList()).apply {
+                setOnItemClickListener(object : OnItemClickListener<DataItem>{
+                    override fun onClick(v: View, data: DataItem) {
+                        viewModel.newsDataSelected.postValue(data)
+                    }
+                })
+            }
+            oRecyclerViewAdapter
             adapter = oRecyclerViewAdapter
+
         }
 
 
@@ -56,10 +62,18 @@ class NewListFragment : Fragment(){
             oRecyclerViewAdapter?.notifyDataSetChanged()
         })
 
+        viewModel.newsDataSelected.observe(this , Observer {
+            bundle.putParcelable("newsDataSelected" ,it)
+            navController.navigate(R.id.action_newsListFragment_to_newsSingleFragment, bundle)
+        })
+
     }
 
     open class RecyclerViewAdapter(private var context: Context, var data: List<DataItem>) :
         RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
+        private var onItemClickListener: OnItemClickListener<DataItem>? = null
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewAdapter.ViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
             return ViewHolder(view)
@@ -78,8 +92,15 @@ class NewListFragment : Fragment(){
                 view.apply {
                     txt_title.text = data[position].title
                     Glide.with(this.context).load(data[position].image).into(img_news)
+                    setOnClickListener {
+                        onItemClickListener?.onClick(it, data[position])
+                    }
                 }
             }
+        }
+
+        fun setOnItemClickListener(onItemClickListener: OnItemClickListener<DataItem>) {
+            this.onItemClickListener = onItemClickListener
         }
 
     }

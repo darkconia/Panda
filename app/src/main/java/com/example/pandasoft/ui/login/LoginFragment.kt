@@ -31,7 +31,6 @@ class LoginFragment: Fragment() {
     private fun onBindView() {
         rootView.apply {
             val bundle = Bundle()
-
             val navController = Navigation.findNavController(activity!!, R.id.my_nav_host_fragment)
             btn_login.setOnClickListener {
 //                viewModel.doLogin(edt_username.text.toString() , edt_password.text.toString())

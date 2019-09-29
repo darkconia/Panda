@@ -10,6 +10,7 @@ import com.example.pandasoft.ui.news.model.NewsResponse
 class NewListViewModel (private val repo: NewListRepository , var pref : SharedPreferences) : ViewModel(){
 
     var newsData = MutableLiveData<List<DataItem>>()
+    var newsDataSelected = MutableLiveData<DataItem>()
 
     fun getNews(){
         repo.getNews()

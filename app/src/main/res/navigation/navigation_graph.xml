@@ -23,5 +23,19 @@
             android:id="@+id/newsListFragment"
             android:name="com.example.pandasoft.ui.news.page.newList.NewListFragment"
             android:label="navigation_second_fragment"
-            tools:layout="@layout/list_news" />
+            tools:layout="@layout/list_news" >
+        <action
+                android:id="@+id/action_newsListFragment_to_newsSingleFragment"
+                app:destination="@id/newsSingleFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" />
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/newsSingleFragment"
+            android:name="com.example.pandasoft.ui.news.page.newSingle.NewSingleFragment"
+            android:label="navigation_third_fragment"
+            tools:layout="@layout/single_news"
+    />
+
 </navigation>
