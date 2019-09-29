@@ -1,11 +1,11 @@
 package com.example.pandasoft.ui.login
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.pandasoft.ui.login.model.LoginResponse
+import com.example.pandasoft.util.PreferenceData
 
-class LoginViewModel(private val repo: LoginRepository) : ViewModel(){
-
+class LoginViewModel(private val repo: LoginRepository , var pref : SharedPreferences) : ViewModel(){
 
     fun doLogin(user : String , pass : String ){
         repo.doLogin(user , pass)
@@ -16,6 +16,5 @@ class LoginViewModel(private val repo: LoginRepository) : ViewModel(){
             })
 
     }
-
 
 }

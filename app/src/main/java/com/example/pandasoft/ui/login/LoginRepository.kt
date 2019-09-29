@@ -9,7 +9,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
-import java.util.concurrent.TimeoutException
 
 class LoginRepository (val appExecutors: AppExecutors ,
                        val apiService : APIService){

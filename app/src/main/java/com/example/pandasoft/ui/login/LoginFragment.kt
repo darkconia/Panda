@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.pandasoft.R
+import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.login_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,8 +34,8 @@ class LoginFragment: Fragment() {
 
             val navController = Navigation.findNavController(activity!!, R.id.my_nav_host_fragment)
             btn_login.setOnClickListener {
-                viewModel.doLogin(edt_username.text.toString() , edt_password.text.toString())
-//                navController.navigate(R.id.action_loginFragment_to_newsListFragment, bundle)
+//                viewModel.doLogin(edt_username.text.toString() , edt_password.text.toString())
+                navController.navigate(R.id.action_loginFragment_to_newsListFragment, bundle)
             }
         }
     }

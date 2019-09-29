@@ -1,5 +1,7 @@
 package com.example.pandasoft.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.example.pandasoft.api.APIService
 import com.example.pandasoft.ui.login.LoginRepository
 import com.example.pandasoft.ui.login.LoginViewModel
@@ -8,6 +10,7 @@ import com.example.pandasoft.ui.news.page.newList.NewListViewModel
 import com.example.pandasoft.util.AppExecutors
 import com.example.pandasoft.util.AuthInterceptor
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -18,9 +21,11 @@ val applicationModule = module {
 
     single { AppExecutors() }
     single { LoginRepository(get(), get()) }
-    single { NewListRepository(get()) }
-    viewModel { LoginViewModel(get()) }
-    viewModel { NewListViewModel(get()) }
+    single { NewListRepository(get() , get()) }
+    viewModel { LoginViewModel(get() , get()) }
+    viewModel { NewListViewModel(get() ,get()) }
+
+    single<SharedPreferences> { androidContext().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE) }
 
     single{provideDefaultOkHttpClient()}
     single{provideRetrofit(get())}
