@@ -2,9 +2,6 @@ package com.example.pandasoft.ui.news.page.newList
 
 import com.example.pandasoft.api.APIService
 import com.example.pandasoft.util.AppExecutors
-import com.example.pandasoft.ui.login.model.LoginBodyRequest
-import com.example.pandasoft.ui.login.model.LoginResponse
-import com.example.pandasoft.ui.login.model.create
 import com.example.pandasoft.ui.news.model.NewsResponse
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

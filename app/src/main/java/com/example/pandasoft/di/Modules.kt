@@ -7,6 +7,8 @@ import com.example.pandasoft.ui.login.LoginRepository
 import com.example.pandasoft.ui.login.LoginViewModel
 import com.example.pandasoft.ui.news.page.newList.NewListRepository
 import com.example.pandasoft.ui.news.page.newList.NewListViewModel
+import com.example.pandasoft.ui.news.page.newSingle.NewSingleRepository
+import com.example.pandasoft.ui.news.page.newSingle.NewSingleViewModel
 import com.example.pandasoft.util.AppExecutors
 import com.example.pandasoft.util.AuthInterceptor
 import okhttp3.OkHttpClient
@@ -22,8 +24,10 @@ val applicationModule = module {
     single { AppExecutors() }
     single { LoginRepository(get(), get()) }
     single { NewListRepository(get() , get()) }
+    single { NewSingleRepository(get(), get()) }
     viewModel { LoginViewModel(get() , get()) }
     viewModel { NewListViewModel(get() ,get()) }
+    viewModel { NewSingleViewModel(get()) }
 
     single<SharedPreferences> { androidContext().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE) }
 
