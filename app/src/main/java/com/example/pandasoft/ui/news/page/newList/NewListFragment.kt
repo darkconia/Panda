@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.item_news.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.net.Uri
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_news.*
 import kotlinx.android.synthetic.main.list_news.view.*
 
@@ -38,38 +39,23 @@ class NewListFragment : Fragment(){
 
     private fun onBindView() {
 
+        val bundle = Bundle()
+        val navController = Navigation.findNavController(activity!!, com.example.pandasoft.R.id.my_nav_host_fragment)
+
+
+        rv_news.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true)
+            setHasFixedSize(true)
+            oRecyclerViewAdapter = RecyclerViewAdapter(context!!, ArrayList())
+            adapter = oRecyclerViewAdapter
+        }
+
+
         viewModel.newsData.observe(this, Observer {
+            oRecyclerViewAdapter?.data = it
             oRecyclerViewAdapter?.notifyDataSetChanged()
         })
 
-
-        rootView.apply {
-            val bundle = Bundle()
-            val navController = Navigation.findNavController(activity!!, com.example.pandasoft.R.id.my_nav_host_fragment)
-
-            viewModel.newsData.value?.let {
-                oRecyclerViewAdapter = RecyclerViewAdapter(context, viewModel.newsData.value!!)
-            }
-
-            rv_news.layoutManager = LinearLayoutManager(context)
-            rv_news.setHasFixedSize(true)
-            rv_news.adapter = oRecyclerViewAdapter
-
-            /*rv_news.apply {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-
-                viewModel.newsData.value?.let {
-                    oRecyclerViewAdapter = RecyclerViewAdapter(context, viewModel.newsData.value!!)
-                }
-
-                oRecyclerViewAdapter.let {
-                    adapter = oRecyclerViewAdapter
-                }
-
-            }*/
-
-        }
     }
 
     open class RecyclerViewAdapter(private var context: Context, var data: List<DataItem>) :
@@ -91,9 +77,7 @@ class NewListFragment : Fragment(){
             fun bindView(position: Int) {
                 view.apply {
                     txt_title.text = data[position].title
-
-                    val imgUri = Uri.parse(data[position].image)
-                    img_news.setImageURI(imgUri)
+                    Glide.with(this.context).load(data[position].image).into(img_news)
                 }
             }
         }
