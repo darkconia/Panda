@@ -19,12 +19,6 @@ class LoginViewModel(private val repo: LoginRepository , var pref : PreferenceDa
                     setDataInPreference(loginRespond.body()!!)
                 }
             })
-
-        /*pref.addShareConfig(pref.accessToken , "access_1")
-        pref.addShareConfig(pref.refreshToken , "refresh_1")
-        pref.addShareConfig(pref.expireIn , 60)
-        pref.addShareConfig(pref.expireDateTime , dateUtil.getExpireDateTimeStr(60))
-        Log.d("preference : ","${pref.getShareConfig(pref.expireDateTime).toString()}")*/
     }
 
     fun setDataInPreference(loginResponse: LoginResponse){
