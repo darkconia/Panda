@@ -8,25 +8,38 @@ import com.example.pandasoft.ui.news.model.DataItem
 import com.example.pandasoft.ui.news.model.NewsResponse
 import com.example.pandasoft.util.PreferenceData
 
-class NewListViewModel (private val repo: NewListRepository , var pref : PreferenceData) : ViewModel(){
+class NewListViewModel (val repo: NewListRepository , var pref : PreferenceData) : ViewModel(){
 
     var newsData = MutableLiveData<List<DataItem>>()
     var newsDataSelected = MutableLiveData<DataItem>()
+    var noNewsData = MutableLiveData<Boolean>()
 
     fun getNews(){
         repo.getNews()
             .subscribe(
                 {newsResponse ->
                     newsResponse.body()?.let{
-                        if(it.status == 200){
-                            newsData.postValue(it.data!!)
-                     }
-                 }
+                        updateNewsData(it)
+                    }?:run{
+                        updateNoNewsData()
+                    }
                 },
                 {e ->
                     Log.e("news","$e")
                 }
             )
+    }
+
+    fun updateNewsData(respond : NewsResponse){
+        respond.let {
+            if (it.status == 200) {
+                newsData.postValue(it.data!!)
+            }
+        }
+    }
+
+    fun updateNoNewsData(){
+        noNewsData.postValue(true)
     }
 
 }
