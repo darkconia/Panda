@@ -10,6 +10,8 @@ import com.example.pandasoft.ui.news.page.newList.NewListViewModel
 import com.example.pandasoft.ui.news.page.newSingle.NewSingleRepository
 import com.example.pandasoft.ui.news.page.newSingle.NewSingleViewModel
 import com.example.pandasoft.util.AppExecutors
+import com.example.pandasoft.util.DateTimeConverter
+import com.example.pandasoft.util.PreferenceData
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -26,15 +28,16 @@ val applicationModule = module {
     single { LoginRepository(get(), get()) }
     single { NewListRepository(get() , get()) }
     single { NewSingleRepository(get(), get()) }
-    viewModel { LoginViewModel(get() , get()) }
+    viewModel { LoginViewModel(get() , get() , get()) }
     viewModel { NewListViewModel(get() ,get()) }
-    viewModel { NewSingleViewModel(get()) }
+    viewModel { NewSingleViewModel(get() , get() , get()) }
 
-    single<SharedPreferences> { androidContext().getSharedPreferences("preferenceData", Context.MODE_PRIVATE) }
+    single { PreferenceData(get())}
+    single { DateTimeConverter() }
 
-    single{provideDefaultOkHttpClient()}
-    single{provideRetrofit(get())}
-    single{provideTmdbService(get())}
+    single {provideDefaultOkHttpClient()}
+    single {provideRetrofit(get())}
+    single {provideTmdbService(get())}
 }
 
 fun provideDefaultOkHttpClient() : OkHttpClient{

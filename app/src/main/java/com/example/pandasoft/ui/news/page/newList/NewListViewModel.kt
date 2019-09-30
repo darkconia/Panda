@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pandasoft.ui.news.model.DataItem
 import com.example.pandasoft.ui.news.model.NewsResponse
+import com.example.pandasoft.util.PreferenceData
 
-class NewListViewModel (private val repo: NewListRepository , var pref : SharedPreferences) : ViewModel(){
+class NewListViewModel (private val repo: NewListRepository , var pref : PreferenceData) : ViewModel(){
 
     var newsData = MutableLiveData<List<DataItem>>()
     var newsDataSelected = MutableLiveData<DataItem>()

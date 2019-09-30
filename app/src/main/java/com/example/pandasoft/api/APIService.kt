@@ -5,6 +5,7 @@ import com.example.pandasoft.ui.login.model.LoginResponse
 import com.example.pandasoft.ui.login.model.RefreshTokenBodyRequest
 import com.example.pandasoft.ui.login.model.RefreshTokenResponse
 import com.example.pandasoft.ui.news.model.LikeBodyRequest
+import com.example.pandasoft.ui.news.model.LikeBodyRespond
 import com.example.pandasoft.ui.news.model.NewsResponse
 import io.reactivex.Observable
 import retrofit2.Response
@@ -23,5 +24,5 @@ interface APIService {
     fun sendRequestNews(): Observable<Response<NewsResponse>>
 
     @POST("like")
-    fun sendLikeNews(@Body body: LikeBodyRequest)
+    fun sendLikeNews(@Body body: LikeBodyRequest): Observable<Response<LikeBodyRespond>>
 }

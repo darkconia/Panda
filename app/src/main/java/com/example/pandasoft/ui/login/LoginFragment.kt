@@ -33,7 +33,7 @@ class LoginFragment: Fragment() {
             val bundle = Bundle()
             val navController = Navigation.findNavController(activity!!, R.id.my_nav_host_fragment)
             btn_login.setOnClickListener {
-//                viewModel.doLogin(edt_username.text.toString() , edt_password.text.toString())
+                viewModel.doLogin(edt_username.text.toString() , edt_password.text.toString())
                 navController.navigate(R.id.action_loginFragment_to_newsListFragment, bundle)
             }
         }

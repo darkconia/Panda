@@ -5,5 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class RefreshTokenBodyRequest(
 
 	@field:SerializedName("refresh_token")
-	val refreshToken: String? = null
+	var refreshToken: String? = null
 )
+
+fun RefreshTokenBodyRequest.create(tokenToRefresh : String):RefreshTokenBodyRequest{
+	return this.apply {
+		refreshToken = tokenToRefresh
+	}
+}

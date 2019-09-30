@@ -3,15 +3,16 @@ package com.example.pandasoft.util
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import java.util.*
 
-class PreferenceData (var context : Context) {
+class PreferenceData (var context : Context){
 
     private var prefs : SharedPreferences
 
     var accessToken = "accessToken"
     var refreshToken = "refreshToken"
     var expireIn = "expireIn"
-    var preferenceData = "preferenceData"
+    var expireDateTime = "expireDateTime"
 
 
     init {
@@ -20,7 +21,6 @@ class PreferenceData (var context : Context) {
 
     fun addShareConfig(key: String, data: Any) {
         prefs[key] = data
-
     }
 
     fun removeShareConfig(key: String) {
@@ -37,7 +37,10 @@ class PreferenceData (var context : Context) {
                 return prefs[key , ""]  as String
             }
             expireIn -> {
-                return prefs[key, android.os.Build.VERSION.SDK_INT.toString()] as String
+                return prefs[key, 640] as Int
+            }
+            expireDateTime -> {
+                return prefs[key, ""] as String
             }
         }
         return false
